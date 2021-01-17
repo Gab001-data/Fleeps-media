@@ -1,0 +1,71 @@
+<%- include("partials/header"); -%>
+<div class="container-fluid">
+  <h1>Compose</h1>
+  <form  id="user-form" action="/compose" method="POST" enctype="multipart/form-data">
+    <div class="mb-3">
+      <label for="author" class="form-label">Author</label>
+      <input type="text" class="form-control" id="author" name="author" >
+    </div>
+    <div class="mb-3">
+      <label for="title" class="form-label">Title</label>
+      <input type="text" class="form-control" id="title" name="title" >
+    </div>
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <input type="text" class="form-control" id="description" name="description" >
+    </div>
+    <div class="mb-3">
+      <label for="category" class="form-label">Category</label>
+      <select id="category" name="category" form="user-form" class="form-control">
+        <% categories.forEach((category)=>{%>
+          <option value="<%= category.name %>"><%=category.name%></option>
+        <%})%>
+      </select>
+    </div>
+    <label for="postText" class="form-label">Tags</label>
+    <div class="mb-3 tag-bar tags">Choose Tags <i class="fas fa-angle-down tags" id="arrow"></i>
+    </div>
+    <div class="tag-items row" style="display:none;" id="tag-items">
+      <!--item group1-->
+      <div class="tag-group col-6">
+        <input type="checkbox" id="tag1" name="tag" value="Travel">
+        <label for="tag1"> Travel</label><br>
+        <input type="checkbox" id="tag2" name="tag" value="Job">
+        <label for="tag2"> Job</label><br>
+        <input type="checkbox" id="tag3" name="tag" value="Football">
+        <label for="tag3"> Football</label><br>
+        <input type="checkbox" id="tag4" name="tag" value="Video">
+        <label for="tag3"> Video</label>
+      </div>
+      <!--item group1-->
+      <div class="tag-group col-6">
+        <input type="checkbox" id="tag5" name="tag" value="Music">
+        <label for="tag1"> Music</label><br>
+        <input type="checkbox" id="tag6" name="tag" value="Ideas">
+        <label for="tag2"> Ideas</label><br>
+        <input type="checkbox" id="tag7" name="tag" value="News">
+        <label for="tag3">News</label><br>
+        <input type="checkbox" id="tag8" name="tag" value="Lifestyle">
+        <label for="tag3"> Lifestyle</label>
+      </div>
+    
+    </div>
+    <div class="mb-3">
+      <label for="content" class="form-label">Post</label>
+      <textarea name="content" id="content" cols="30" rows="10" form="user-form" class="form-control"></textarea>
+    </div>
+    <div class="mb-3">
+      <label for="myfile">Select a file:</label>
+      <input type="file" id="myfile" name="myfile">
+    </div>
+    <div class="mb-3">
+        <button type="submit" class="btn btn-primary post-submit">Submit</button>
+    </div>
+    
+  </form>
+
+</div>
+
+
+
+<%- include("partials/footer"); -%>

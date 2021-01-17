@@ -1,0 +1,33 @@
+<%- include("Partials/header") -%>
+
+    <div class="container-fluid" style="padding: 120px 8%;">
+        <div class="row">
+            <!--Category Entries-->
+            <div class="col-md-8 columns">
+                <% categoryDoc.forEach(function(post){ %>
+                    <div class="category-entry">
+                        <div class="img"><img src="<%= post.image %>" alt="<%= post.title %>"></div>
+                        <div class="entry-text">
+                            <span class="w3-tag"><%= post.tag[0] %></span>
+                            <h1><%= post.title %></h1>
+                            <p><%= post.description %><br><a href="/category/<%= post.category %>/<%= post._id %>">Read More &rarr;</a></p>
+                        </div>
+                    </div>
+                <%})%>
+                
+                <!--<div class="category-entry">
+                    <div class="img"><img src="img/img2.jpg" alt=""></div>
+                    <div class="entry-text">
+                        <span class="w3-tag">basketball</span>
+                        <h1>Lorem ipsum dolor sit amet, consectetur</h1>
+                        <p>sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in</p>
+                    </div>
+                </div>-->
+                
+            </div>
+
+            <!--Aside-->
+            <%- include("Partials/aside")-%>
+        </div>
+    </div>
+<%- include("partials/footer") -%>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Daily Journal</title>
+  <meta charset="utf-8">
+  <script src="https://kit.fontawesome.com/cd1d9bb608.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <!--Navigation bar-->
+  <div class="w3-top navbar">
+    <div class="w3-bar">
+      <div class="w3-bar-item" style="padding-left: 0px; padding-top:0px;"><a href="/" class=""><div class="logo"><img src="img/fleeps logo.png" alt="logo"></div></a></div>
+      <div class="w3-bar-item w3-bar w3-right navbar-item w3-hide-small" style="padding-top:0px; padding-right: 0; margin-top: 10px;">
+        <div class="w3-dropdown-click">
+          <div class="" onclick="myFunction('entertainment')" style="padding: 8px;">
+            Entertainment <i class="fa fa-caret-down down-arrow"></i>
+          </div>
+          <div id="entertainment" class="w3-dropdown-content w3-bar-block w3-card">
+            <a href="#" class="w3-bar-item w3-button">Music</a>
+            <a href="#" class="w3-bar-item w3-button">Video</a>
+          </div>
+        </div>
+        <a href="/category/Sports" class="w3-bar-item ">Sports</a>
+        <a href="/category/Business" class="w3-bar-item">Business</a>
+        <div class="w3-dropdown-click">
+          <div class="w3-button" onclick="myFunction('lifeStyle')">
+            Lifestyle <i class="fa fa-caret-down down-arrow"></i>
+          </div>
+          <div id="lifeStyle" class="w3-dropdown-content w3-bar-block w3-card">
+            <a href="#" class="w3-bar-item w3-button">Health</a>
+            <a href="#" class="w3-bar-item w3-button">Travel</a>
+          </div>
+        </div>
+        <a href="/category/Fashion" class="w3-bar-item">Fashion</a>
+        <a href="/category/Events" class="w3-bar-item" >Events</a>
+        <a href="/category/Talents" class="w3-bar-item">Talents</a>
+      </div>
+      <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="showItem('mobile')"><i class="fa fa-bars"></i></a>
+    </div>
+    <!--Collapse navbar for mobile-->
+    <div id="mobile" class="w3-bar-block navbar-item w3-hide w3-hide-large w3-hide-medium w3-animate-top w3-border" style="padding-top:0px;">
+      <a href="/category/Sports" class="w3-bar-item ">Sports</a>
+      <a href="/category/Business" class="w3-bar-item">Business</a>
+      <a href="javascript:void(0)" class="w3-bar-item" onclick="myFunction('mobile-dropdown1')">Entertainment <i class="fa fa-caret-down down-arrow"></i></a>
+      <div id="mobile-dropdown1" class="w3-hide w3-animate-top">
+        <a class="w3-button w3-block w3-left-align" href="#">Music</a>
+        <a class="w3-button w3-block w3-left-align" href="#">Video</a>
+      </div>
+      <a href="/category/Fashion" class="w3-bar-item">Fashion</a>
+      <a href="/category/Events" class="w3-bar-item" >Events</a>
+      <a href="javascript:void(0)" class="w3-bar-item" onclick="myFunction('mobile-dropdown2')">Lifestyle <i class="fa fa-caret-down down-arrow"></i></a>
+      <div id="mobile-dropdown2" class="w3-hide w3-animate-top">
+        <a class="w3-button w3-block w3-left-align" href="#">Health</a>
+        <a class="w3-button w3-block w3-left-align" href="#">Travel</a>
+      </div>
+      <a href="/category/Talents" class="w3-bar-item">Talents</a>
+    </div>
+
+  </div>
+
+  

@@ -1,0 +1,298 @@
+<%- include("partials/header"); -%>
+<div class="container-fluid" style="padding: 120px 8%;">
+
+    <div class="row">
+
+      <!-- Post Content Column -->
+      <div class="col-lg-8 col">
+        <!--Content-->
+        <div class="row" style="padding-top: 0;">
+          <div class="col-12">
+            <!-- Title -->
+            <h1 class="mt-4"><%= postDoc[0].title %></h1>
+
+            <!-- Author -->
+            <p class="lead">
+              by
+              <a href="#"><%= postDoc[0].author %></a>
+            </p>
+
+            <hr>
+
+            <!-- Date/Time -->
+            <% const options= {year: 'numeric', month:'long', day: 'numeric'} %>
+            <p>Posted on <%= postDoc[0].createdAt.toLocaleDateString("en-US",options) %> at <%= postDoc[0].createdAt.toLocaleTimeString("en-US") %> </p>
+
+            <hr>
+
+            <!-- Preview Image -->
+            <img class="img-fluid rounded" src="<%= postDoc[0].image %>" alt="<%= postDoc.title %>">
+
+            <hr>
+
+            <!-- Post Content -->
+            <div class="content"><%-postDoc[0].content %></div>
+            <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus, vero, obcaecati, aut, error quam sapiente nemo saepe quibusdam sit excepturi nam quia corporis eligendi eos magni recusandae laborum minus inventore?</p>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, tenetur natus doloremque laborum quos iste ipsum rerum obcaecati impedit odit illo dolorum ab tempora nihil dicta earum fugiat. Temporibus, voluptatibus.</p>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos, doloribus, dolorem iusto blanditiis unde eius illum consequuntur neque dicta incidunt ullam ea hic porro optio ratione repellat perspiciatis. Enim, iure!</p>
+
+            <blockquote class="blockquote">
+              <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+              <footer class="blockquote-footer">Someone famous in
+                <cite title="Source Title">Source Title</cite>
+              </footer>
+            </blockquote>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error, nostrum, aliquid, animi, ut quas placeat totam sunt tempora commodi nihil ullam alias modi dicta saepe minima ab quo voluptatem obcaecati?</p>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum, dolor quis. Sunt, ut, explicabo, aliquam tenetur ratione tempore quidem voluptates cupiditate voluptas illo saepe quaerat numquam recusandae? Qui, necessitatibus, est!</p>
+
+            <hr>
+          </div>
+        </div>
+
+        <!--Related Post-->
+        <div class="row content-row related-post">
+          <!--title row-->
+          <div class="row">
+            <div class="col-12 related-postTitle"><span class="divider"></span><span>Related Post</span><span class="divider"></span></div>
+          </div>
+
+          <!--Category content-->
+          <div class="row category-content">
+            <div class="col-sm-12 col-md-4">
+              <div class="card mb-4">
+                <img class="card-img-top" src="img/download.jpg" alt="Card image cap">
+                <div class="card-body">
+                  <h2 class="card-title">Post Title</h2>
+                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum <a href="#"> Read More &rarr;</a></p>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-4">
+              <div class="card mb-4">
+                <img class="card-img-top" src="img/download.jpg" alt="Card image cap">
+                <div class="card-body">
+                  <h2 class="card-title">Post Title</h2>
+                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum <a href="#"> Read More &rarr;</a></p>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-4">
+               <div class="card mb-4">
+                <img class="card-img-top" src="img/download.jpg" alt="Card image cap">
+                <div class="card-body">
+                  <h2 class="card-title">Post Title</h2>
+                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum <a href="#"> Read More &rarr;</a></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--Read more button-->
+          <div class="row read-more">
+            <div class="col-12"><button class="btn">Read More &darr;</button></div>
+          </div>
+        </div>
+
+        <!--Comment inputs-->
+        <div class="row row-content">
+          <div class="card my-4">
+            <h5 class="card-header">Leave a Comment:</h5>
+            <div class="card-body">
+              <form action="/comment" method="POST">
+                <div class="form-group">
+                  <textarea class="form-control" rows="6" name="content"></textarea>
+                </div>
+                <div class="form-group login">
+                  <div class="social-login">
+                    <h5>Log in</h5>
+                    <i class="fab fa-facebook-square"></i>
+                    <i class="fab fa-google"></i>
+                    <i class="fab fa-instagram"></i>
+                    <i class="fab fa-twitter-square"></i>
+                  </div>
+                  <div class="guest">
+                    <h5>Post as Guest</h5>
+                    <input type="text" class="form-control" name="fname" placeholder="FirstName" required>
+                    <input type="text" class="form-control" name="lname" placeholder="LastName" required>
+                    <input type="email" class="form-control" name="email" placeholder="Email" required>
+                    <input type="hidden" name="postId" value="<%= postDoc[0]._id %>">
+                    <input type="hidden" name="category" value="<%= postDoc[0].category %>">
+                    <input type="hidden" name="title" value="<%= postDoc[0].title %>">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <button type="submit" class="btn btn-primary form-control">Comment</button>
+                </div>
+                
+              </form>
+            </div>
+          </div>
+
+        </div>
+
+        <!--Comment Section-->
+        <div class="row row-content">
+          <!--template goes here/ one full comment including replies-->
+          <% let commentIndex=0 %>
+          <% let replyIndex=0 %>
+          <% commentDoc.forEach(function(comment){ %>
+            <%commentIndex++%>
+            <div class="comment-section">
+              <!--user image section-->
+              <div class="user-image">
+                <img src="img/avatar.webp" alt="user-image">
+              </div>
+              <!--comment text section-->
+              <div class="comment-text">
+                <!--comment head-->
+                <div class="row comment-header">
+                  <% let option1={month: 'long', day: 'numeric'} %>
+                  <% let monthDay= comment.createdAt.toLocaleDateString('en-US', option1).split(" "); %>
+                  <span><%= comment.user.firstName %> <%= comment.user.lastName %></span>&nbsp;<span><%= monthDay[0].substring(0,3) %> <%= monthDay[1]%></span>
+
+                </div>
+
+                <!--comment body-->
+                <div class="row">
+                  <p><%= comment.content %></p>
+                </div>
+
+                <!--Likes & reply tags-->
+                <div class="row">
+                  <span class="likes"><i class="fas fa-thumbs-up" onclick="showLikes(event)"></i></span> <span class="no-likes" style="display:none;">0</span>
+                  <span class="reply-click" onclick="showElements('reply-input<%=commentIndex%>')">Reply</span>
+                </div>
+
+                <!--comment box for reply-->
+                <div class="row" id="reply-input<%=commentIndex%>" style="display:none;">
+                  <div class="card my-4">
+                    <h5 class="card-header">Leave a Reply:</h5>
+                    <div class="card-body">
+                      <form action="/reply" method="POST">
+                        <div class="form-group">
+                          <textarea class="form-control" rows="4" name="content"></textarea>
+                        </div>
+                        <div class="form-group login">
+                          <div class="social-login">
+                            <h5>Log in</h5>
+                            <i class="fab fa-facebook-square"></i>
+                            <i class="fab fa-google"></i>
+                            <i class="fab fa-instagram"></i>
+                            <i class="fab fa-twitter-square"></i>
+                          </div>
+                          <div class="guest">
+                            <h5>Post as Guest</h5>
+                            <input type="text" class="form-control" name="fname" placeholder="FirstName" required>
+                            <input type="text" class="form-control" name="lname" placeholder="LastName" required>
+                            <input type="email" class="form-control" name="email" placeholder="Email" required>
+                            <input type="hidden" name="commentId" value="<%= comment._id %>">
+                            <input type="hidden" name="category" value="<%= postDoc[0].category %>">
+                            <input type="hidden" name="title" value="<%= postDoc[0].title %>">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <button type="submit" class="btn btn-primary form-control">Reply</button>
+                        </div>
+                        
+                      </form>
+                    </div>
+                  </div>
+                </div>
+
+                <!--reply section-->
+                <% if(replyDoc.length>0){%>
+                  <% replyDoc.forEach(function(reply){%>
+                    <% replyIndex++ %>
+                    <% if(reply.commentId===comment._id.toString()){%>
+                      <div class="comment-section">
+                        <!--user image section-->
+                        <div class="user-image">
+                          <img src="img/avatar.webp" alt="user-image">
+                        </div>
+                        <!--comment text section-->
+                        <div class="comment-text">
+                          <!--comment head-->
+                          <div class="row comment-header">
+                            <% let option1={month: 'long', day: 'numeric'} %>
+                            <% let monthDay= reply.createdAt.toLocaleDateString('en-US', option1).split(" "); %>
+                            <span><%= reply.user.firstName %> <%= reply.user.lastName %></span>&nbsp;<span><%= monthDay[0].substring(0,3) %> <%= monthDay[1]%></span>
+          
+                          </div>
+          
+                          <!--comment body-->
+                          <div class="row">
+                            <p><%= reply.content %></p>
+                          </div>
+          
+                          <!--Likes & reply tags-->
+                          <div class="row">
+                            <span class="likes"><i class="fas fa-thumbs-up" onclick="showLikes(event)"></i></span> <span class="no-likes" style="display:none;">0</span>
+                            <span class="reply-click" onclick="showElements('reply-input<%=replyIndex %>')">Reply</span>
+                          </div>
+          
+                          <!--comment box for reply-->
+                          <div class="row" id="reply-input<%=replyIndex %>" style="display:none;">
+                            <div class="card my-4">
+                              <h5 class="card-header">Leave a Reply:</h5>
+                              <div class="card-body">
+                                <form action="/reply" method="POST">
+                                  <div class="form-group">
+                                    <textarea class="form-control" rows="4" name="content"></textarea>
+                                  </div>
+                                  <div class="form-group login">
+                                    <div class="social-login">
+                                      <h5>Log in</h5>
+                                      <i class="fab fa-facebook-square"></i>
+                                      <i class="fab fa-google"></i>
+                                      <i class="fab fa-instagram"></i>
+                                      <i class="fab fa-twitter-square"></i>
+                                    </div>
+                                    <div class="guest">
+                                      <h5>Post as Guest</h5>
+                                      <input type="text" class="form-control" name="fname" placeholder="FirstName" required>
+                                      <input type="text" class="form-control" name="lname" placeholder="LastName" required>
+                                      <input type="email" class="form-control" name="email" placeholder="Email" required>
+                                      <input type="hidden" name="commentId" value="<%= comment._id %>">
+                                      <input type="hidden" name="category" value="<%= postDoc[0].category %>">
+                                      <input type="hidden" name="title" value="<%= postDoc[0].title %>">
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <button type="submit" class="btn btn-primary form-control">Reply</button>
+                                  </div>
+                                  
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                          <!--reply text-->
+                         
+                        </div>
+                      </div>
+
+
+                    <%}%>
+                  <%})%>
+                <%}%>
+                
+               
+              </div>
+            </div>
+
+          <%})%>
+          
+          
+        </div>
+        
+
+      </div>
+
+    <!-- Sidebar Widgets Column -->
+    <%- include("partials/aside"); -%>
+    <!-- /.row -->
+    </div>
+</div>
+<%- include("partials/footer"); -%>

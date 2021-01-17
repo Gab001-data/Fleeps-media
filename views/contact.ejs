@@ -1,0 +1,18 @@
+<%- include('partials/header') -%>
+<h1>Contacts</h1>
+<div class="container-fluid">
+     <!--<form action="/stats" enctype="multipart/form-data" method="post">
+            <div class="form-group">
+              <input type="file" class="form-control-file" name="uploaded_file">
+              <input type="text" class="form-control" placeholder="Number of speakers" name="nspeakers">
+              <input type="submit" value="Get me the stats!" class="btn btn-default">            
+            </div>
+          </form>-->
+          <form ref='uploadForm' id='uploadForm' action='/upload' 
+          method='post' encType="multipart/form-data">
+          <input type="file" name="sampleFile" />
+          <input type='submit' value='Upload!' />
+      </form>       
+
+</div>
+<%- include('partials/footer') -%>
