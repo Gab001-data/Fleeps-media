@@ -1,2 +1,2 @@
 # Fleeps-media
-Fleep media blog/new platform
+Fleep media blog/news platform
