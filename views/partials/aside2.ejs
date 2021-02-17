@@ -1,7 +1,25 @@
-
-
-
-
+<div class="col-md-4 aside">
+  <!-- Aside tabs -->
+<div class="w3-card aside-item comment-aside">
+  <!--tab header-->
+  <div class="tab-title">
+    <div class="comment-tab-title"><h4>Most Commented</h4></div>
+  </div>
+  <hr>
+  <!--Popular tab-->
+  <div class="w3-container w3-white tabs" id="Popular">
+    <!--template collection goes here-->
+      <% popularDoc.forEach(function(post){%>
+        <% let PostTitle=post.title %>
+        <% if(PostTitle.length > 65){%>
+          <%PostTitle=PostTitle.substr(0,65)+"..."%>
+        <%}%>
+        <div class="comment-tab-text">
+          <p class=""><a href="/category/<%= post.category %>/<%= post._id %>"><%= PostTitle %></a></p>
+        </div>  
+      <%})%>
+  </div>
+</div>
 <!-- Side Widget -->
 <div class="w3-card card">
     <div class="w3-container w3-padding">
@@ -15,4 +33,8 @@
         <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">Sports</span> <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">Games</span>
       </p>
     </div>
-  </div>
+</div>
+
+</div>
+
+

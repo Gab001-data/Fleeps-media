@@ -1,5 +1,5 @@
 //jshint esversion:6
-
+require('dotenv').config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
@@ -7,7 +7,8 @@ const _= require("lodash");
 const mongoose= require("mongoose");
 const fileUpload = require('express-fileupload');
 const path= require("path");
-const model= require(__dirname+"/models/model.js")
+const model= require(__dirname+"/models/model.js");
+let Pusher = require('pusher');
 
 
 const app = express();
@@ -18,6 +19,13 @@ app.use(express.static("public"));
 app.use('/category', express.static('public'));//for routs prefixed with 'category'   e.g /category/categoryName
 app.use('/category/:category/', express.static('public'));
 
+//initializing pusher with app credentials 
+let pusher = new Pusher({
+  appId: process.env.PUSHER_APP_ID,
+  key: process.env.PUSHER_APP_KEY,
+  secret: process.env.PUSHER_APP_SECRET,
+  cluster: process.env.PUSHER_APP_CLUSTER
+});
 // Database connection
 mongoose.connect('mongodb://localhost/blogDB', {useNewUrlParser: true, useUnifiedTopology: true});
 // Testing connection
@@ -61,14 +69,14 @@ app.get("/", async (req,res)=>{
       console.log(err)
     }
   }).sort({createdAt: -1}).limit(10);
-  console.log(postDoc);
+
   // Categories Query/Sports
   const sportDoc= await model.post.find({category: 'Sports'}, (err)=>{
     if(err){
       console.log(err);
     }
   }).sort({createdAt: -1}).limit(3);
-  console.log(sportDoc);
+  
   // Categories Query/Business
   const businessDoc= await model.post.find({category: 'Business'},(err)=>{
     if(err){
@@ -105,8 +113,15 @@ app.get("/", async (req,res)=>{
       console.log(err);
     }
   }).sort({createdAt: -1}).limit(3);
+   // Categories Query/Music
+   const MusicDoc= await model.post.find({category: 'Music'}, (err)=>{
+    if(err){
+      console.log(err);
+    }
+  }).sort({createdAt: -1}).limit(8);
+  //console.log(MusicDoc);
   // Categories Query/Recent
-  const recentDoc= await model.post.find({}, (err)=>{
+  const recentDoc= await model.post.find({category: {$nin: ["Talent","Events"]}}, (err)=>{
     if(err){
       console.log(err);
     }
@@ -128,6 +143,7 @@ app.get("/", async (req,res)=>{
     lifestyleDoc: lifestyleDoc,
     fashionDoc: fashionDoc,
     eventDoc: eventDoc,
+    MusicDoc: MusicDoc,
     recentDoc:recentDoc,
     popularDoc: popularDoc
 
@@ -195,7 +211,7 @@ app.post("/compose", function(req,res){
             console.log("database updated successfully");
           }
         })
-        res.send('File uploaded!');
+        res.redirect('/');
     });
 
 });
@@ -204,12 +220,17 @@ app.get("/category/:category/:postId", async function(req,res){
   const postId= req.params.postId;
   const categoryName= _.capitalize(req.params.category);
   const postDoc= await model.post.find({_id:postId},(err)=>{
-    console.log(err);
+    if(err){
+      console.log(err);
+    }
+    
   });
   // Update clicks
   const clicks= postDoc[0].clicks+1;
   model.post.updateOne({_id:postId},{$set:{clicks:clicks}}, (err, result)=>{
-    console.log(err);
+    if(err){
+      console.log(err);
+    }
   });
   // Categories Query/Recent
   const recentDoc= await model.post.find({}, (err)=>{
@@ -229,6 +250,14 @@ app.get("/category/:category/:postId", async function(req,res){
       console.log(err);
     }
   }).sort({createdAt: -1}).limit(1);
+  //Related Post Query
+  console.log(postDoc[0].tag);
+  const relatedDoc=await model.post.find({_id:{$ne: postDoc[0]._id }, tag:{$in:postDoc[0].tag}}, (err)=>{
+    if(err){
+      console.log(err);
+    }
+  }).sort({clicks: -1}).limit(3);;
+
   // Comment Query
   const commentDoc= await model.comment.find({postId: String(postDoc[0]._id) }, (err)=>{
     console.log(err);
@@ -236,23 +265,38 @@ app.get("/category/:category/:postId", async function(req,res){
   // Reply Query
   const replyDoc= await model.reply.find({}, (err)=>{
     console.log(err);
-  }).sort({createdAt:-1});
+  }).sort({createdAt: 1});
   res.render("post",
   {
     postDoc: postDoc, 
     recentDoc: recentDoc,
     popularDoc: popularDoc,
     talentDoc: talentDoc,
+    relatedDoc: relatedDoc,
     commentDoc: commentDoc,
     replyDoc: replyDoc 
   }); 
 })
 
 app.get("/category/:category", async function(req,res){
-  const categoryName=_.capitalize(req.params.category)
-  const categoryDoc= await model.post.find({category:categoryName}, (err)=>{
+  // categoryName could be category name or array of tags
+  let categoryName=_.capitalize(req.params.category)
+  let categoryDoc= await model.post.find({category:categoryName}, (err)=>{
     console.log(err);
   }).sort({createdAt:-1});
+  //checking if request is for related post
+  if(categoryDoc.length<1){
+    if(categoryName.indexOf(",")>0){
+      categoryName=categoryName.split(",");
+      console.log(categoryName);
+    }
+    categoryDoc= await model.post.find({tag:{$in: categoryName}}, (err)=>{
+      if(err){
+        console.log(err);
+      }
+    });
+  }
+
   // Categories Query/Recent
   const recentDoc= await model.post.find({}, (err)=>{
     if(err){
@@ -308,9 +352,66 @@ app.post("/reply", (req, res)=>{
     user: replyUser
   })
   newReply.save();
-  res.redirect("/category/"+req.body.category+"/"+req.body.title);
+  res.redirect("/category/"+req.body.category+"/"+req.body.postId);
 });
+//update comments and reply likes
+app.post("/:typeId/:action", async function(req,res){
+  let typeId=req.params.typeId;
+  let action=req.params.action;
+  console.log(typeId,action);
+  let commentDoc= await model.comment.find({ _id: typeId});
+  if(commentDoc.length>0){
+    let commentLikes;
+    action==="like"? commentLikes= commentDoc[0].likes+1: commentLikes= commentDoc[0].likes-1;
+    console.log(commentLikes);
+    model.comment.updateOne({_id:typeId},{$set:{likes:commentLikes}}, (err, result)=>{
+      if(err){
+        console.log(err);
+      }
+      /*pusher.trigger('post-events', 'postAction', {typetId: req.params.typeId }, req.body.socketId);
+      res.send('');*/
+    }); 
+    console.log(commentDoc); 
+  }else {
+    let replyLikes;
+    let replyDoc= await model.reply.find({ _id: typeId});
+    action==="like"? replyLikes= replyDoc[0].likes+1: replyLikes= replyDoc[0].likes-1;
+    console.log(replyLikes);
+    model.reply.updateOne({_id:typeId},{$set:{likes:replyLikes }}, (err, result)=>{
+      if(err){
+        console.log(err);
+      } 
+      /*pusher.trigger('post-events', 'postAction', {typeId: req.params.typeId }, req.body.socketId);
+      res.send('');*/
+    });
+    console.log(replyDoc);
+  }
+});
+// report comments and replies
+app.post("/report/:id/:reportText", async function(req,res){
+  const id=req.params.id;
+  const reportText= req.params.reportText;
+  
+  const commentDoc=await model.comment.find({_id:id});
+  if(commentDoc.length>0){
+    model.comment.updateOne({_id:id},{$set:{flag:reportText}}, (err,result)=>{
+      if(err){
+        console.log(err);
+      }
+      console.log(result);
+    });
 
+  }else{
+    model.reply.updateOne({_id:id},{$set:{flag:reportText}}, (err,result)=>{
+      if(err){
+        console.log(err);
+      }
+      console.log(result);
+    });
+  }
+
+
+});
 
 
 
@@ -355,3 +456,37 @@ app.listen(3000, function() {
 //   UserEmail (varchar)
 //   CreatedDate (datetime)
 //   Active (int)
+
+/*app.post("/:type/:typeId/:action", async function(req,res){
+  let type= req.params.type;
+  let typeId=req.params.typeId;
+  let action=req.params.action;
+  console.log(type, typeId,action);
+  if(type==="comment"){
+    let commentLikes;
+    let commentDoc= await model.comment.find({ _id: typeId});
+    action==="like"? commentLikes= commentDoc[0].likes+1: commentLikes= commentDoc[0].likes-1;
+    console.log(commentLikes);
+    model.comment.updateOne({_id:typeId},{$set:{likes:commentLikes}}, (err, result)=>{
+      if(err){
+        console.log(err);
+      }
+      pusher.trigger('post-events', 'postAction', {typetId: req.params.typeId }, req.body.socketId);
+      res.send('');
+    }); 
+    console.log(commentDoc); 
+  }else {
+    let replyLikes;
+    let replyDoc= await model.reply.find({ _id: typeId});
+    action==="like"? replyLikes= replyDoc[0].likes+1: replyLikes= replyDoc[0].likes-1;
+    console.log(replyLikes);
+    model.reply.updateOne({_id:typeId},{$set:{likes:replyLikes }}, (err, result)=>{
+      if(err){
+        console.log(err);
+      } 
+      pusher.trigger('post-events', 'postAction', {typeId: req.params.typeId }, req.body.socketId);
+      res.send('');
+    });
+    console.log(replyDoc);
+  }
+});*/

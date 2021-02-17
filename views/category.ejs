@@ -6,11 +6,11 @@
             <div class="col-md-8 columns">
                 <% categoryDoc.forEach(function(post){ %>
                     <div class="category-entry">
-                        <div class="img"><img src="<%= post.image %>" alt="<%= post.title %>"></div>
+                        <div class="category-page-img"><img src="<%= post.image %>" alt="<%= post.title %>"></div>
                         <div class="entry-text">
                             <span class="w3-tag"><%= post.tag[0] %></span>
-                            <h1><%= post.title %></h1>
-                            <p><%= post.description %><br><a href="/category/<%= post.category %>/<%= post._id %>">Read More &rarr;</a></p>
+                            <h4><%= post.title %></h4>
+                            <p ><%= post.description %><br><a href="/category/<%= post.category %>/<%= post._id %>" class="category-page-readmore">Read More <i class="fas fa-angle-right"></i></a></p>
                         </div>
                     </div>
                 <%})%>

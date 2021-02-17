@@ -1,6 +1,6 @@
 <%- include("partials/header"); -%>
 
-  <!-- Page Content -->
+  <!-- row1/Page Content -->
   <div class="container-fluid">
 
     <div class="row top-row">
@@ -74,8 +74,8 @@
           <div class="row category-content">
             <%for(let i=0; i<sportDoc.length; i++){ %>
               <% let PostTitle=sportDoc[i].title %>
-              <% if(PostTitle.length > 72){%>
-                <%PostTitle=PostTitle.substr(0,72)+"..."%>
+              <% if(PostTitle.length > 80){%>
+                <%PostTitle=PostTitle.substr(0,80)+"..."%>
               <%}%>
               <!--Applying different padding for the first and last element-->
               <% if(i===0){%>
@@ -85,7 +85,7 @@
                       <img class="" src="<%= sportDoc[i].image %>" alt="<%= sportDoc[i].title %>">
                     </div>
                     <div class="card-body">
-                      <h3 class="card-title"><%= PostTitle %></h3>
+                      <h5 class="card-title"><%= PostTitle %></h5>
                       <a href="/category/<%= sportDoc[i].category %>/<%= sportDoc[i]._id %>" class="readmore"> Read More <i class="fas fa-angle-right"></i></a>
                     </div>
                   </div>
@@ -97,7 +97,7 @@
                       <img class="" src="<%= sportDoc[i].image %>" alt="<%= sportDoc[i].title %>">
                     </div>
                     <div class="card-body">
-                      <h3 class="card-title"><%= PostTitle %></h3>
+                      <h5 class="card-title"><%= PostTitle %></h5>
                       <a href="/category/<%= sportDoc[i].category %>/<%= sportDoc[i]._id %>" class="readmore"> Read More <i class="fas fa-angle-right"></i></a>
                     </div>
                   </div>
@@ -109,7 +109,7 @@
                       <img class="" src="<%= sportDoc[i].image %>" alt="<%= sportDoc[i].title %>">
                     </div>
                     <div class="card-body">
-                      <h3 class="card-title"><%= PostTitle %></h3>
+                      <h5 class="card-title"><%= PostTitle %></h5>
                       <a href="/category/<%= sportDoc[i].category %>/<%= sportDoc[i]._id %>" class="readmore"> Read More <i class="fas fa-angle-right"></i></a>
                     </div>
                   </div>
@@ -139,16 +139,16 @@
           <!--Category content-->
           <div class="row category-content">
             <% let PostTitle=businessDoc[0].title %>
-            <% if(PostTitle.length > 72){%>
-              <%PostTitle=PostTitle.substr(0,72)+"..."%>
+            <% if(PostTitle.length > 80){%>
+              <%PostTitle=PostTitle.substr(0,80)+"..."%>
             <%}%>
             <div class="col-sm-12 col-md-5 col-item " style="padding-left:0; padding-right: 15px; height: 380px;">
               <div class="card mb-4 w3-card">
                 <div class="col-img card-img-top">
                   <img class="col-img-circle" src="<%= businessDoc[0].image %>" alt="<%= businessDoc[0].title %>">
                 </div>
-                <div class="card-body" style="padding-top: 20px;">
-                  <h3 class="card-title"><%= PostTitle %></h3>
+                <div class="card-body text-circle-img" style="padding-top: 20px;">
+                  <h5 class="card-title"><%= PostTitle %></h5>
                   <a href="/category/<%= businessDoc[0].category %>/<%= businessDoc[0]._id %>" class="readmore" style="top: 155px;"> Read More <i class="fas fa-angle-right"></i></a>
                 </div>
               </div>
@@ -156,8 +156,8 @@
             <div class="col-sm-12 col-md-7 col-landscape w3-card">
               <%for(let i=1; i<businessDoc.length; i++){ %>
                 <% let PostTitle=businessDoc[i].title %>
-                <% if(PostTitle.length > 65){%>
-                  <%PostTitle=PostTitle.substr(0,65)+"..."%>
+                <% if(PostTitle.length > 70){%>
+                  <%PostTitle=PostTitle.substr(0,70)+"..."%>
                 <%}%>
                 <div class="row row-landscape">
                   <div class="col-12" style="height: 100%;">
@@ -166,7 +166,7 @@
                         <img class="" src="<%= businessDoc[i].image %>" alt="<%= businessDoc[i].title %>">
                       </div>
                       <div class="card-body card-body-landscape">
-                        <h3 class="card-title"><%= PostTitle %></h3>
+                        <h5 class="card-title"><%= PostTitle %></h5>
                         <a href="/category/<%= businessDoc[i].category %>/<%= sportDoc[i]._id %>" class="readmore" style="top: 140px;" > Read More <i class="fas fa-angle-right"></i></a>
                       </div>
                     </div>
@@ -192,8 +192,8 @@
           <div class="row category-content">
             <%for(let i=0; i<entertainmentDoc.length; i++){ %>
               <% let PostTitle=entertainmentDoc[i].title %>
-              <% if(PostTitle.length > 72){%>
-                <%PostTitle=PostTitle.substr(0,72)+"..."%>
+              <% if(PostTitle.length > 80){%>
+                <%PostTitle=PostTitle.substr(0,80)+"..."%>
               <%}%>
               <!--Applying different padding for the first and last element-->
               <% if(i===0){%>
@@ -203,7 +203,7 @@
                       <img class="" src="<%= entertainmentDoc[i].image %>" alt="<%= entertainmentDoc[i].title %>">
                     </div>
                     <div class="card-body">
-                      <h3 class="card-title"><%= PostTitle %></h3>
+                      <h5 class="card-title"><%= PostTitle %></h5>
                       <a href="/category/<%= entertainmentDoc[i].category %>/<%= entertainmentDoc[i]._id %>" class="readmore"> Read More <i class="fas fa-angle-right"></i></a>
                     </div>
                   </div>
@@ -215,7 +215,7 @@
                       <img class="" src="<%= entertainmentDoc[i].image %>" alt="<%= entertainmentDoc[i].title %>">
                     </div>
                     <div class="card-body">
-                      <h3 class="card-title"><%= PostTitle %></h3>
+                      <h5 class="card-title"><%= PostTitle %></h5>
                       <a href="/category/<%= entertainmentDoc[i].category %>/<%= entertainmentDoc[i]._id %>" class="readmore"> Read More <i class="fas fa-angle-right"></i></a>
                     </div>
                   </div>
@@ -227,7 +227,7 @@
                       <img class="" src="<%= entertainmentDoc[i].image %>" alt="<%= entertainmentDoc[i].title %>">
                     </div>
                     <div class="card-body">
-                      <h3 class="card-title"><%= PostTitle %></h3>
+                      <h5 class="card-title"><%= PostTitle %></h5>
                       <a href="/category/<%= entertainmentDoc[i].category %>/<%= entertainmentDoc[i]._id %>" class="readmore"> Read More <i class="fas fa-angle-right"></i></a>
                     </div>
                   </div>
@@ -254,102 +254,133 @@
 
   </div>
 
-  <!-- /.row2 -->
+  <!-- Events row -->
   <div class="row-event">
     <div class="shape-img1">
       <img src="/img/abstract_shapes.png" alt="abstract_shapes">
     </div>
     <h2>Events</h2>
-    <div class="row">
+    <div class="row row-event-img">
       <!--Template goes here-->
-      <div class="col-sm-12 col-md-3">
-        <a href="#">
-          <div class="event-img">
-            <img src="" alt="">
-          </div>
-          
-        </a>
-      </div>
+      <% eventDoc.forEach(function(event){%>
+        <div class="col-sm-12 col-md-4">
+          <a href="#">
+            <div class="event-img">
+              <img src="<%= event.image %>" alt="<%= event.title %>">
+            </div>
+            
+          </a>
+        </div>
+
+      <%})%>
+      
     </div>
       
   </div>
-  <!-- /.container row3 -->
-  <div class="container-fluid">
 
+  <!-- Music & lifestyle row -->
+  <div class="container-fluid">
     <div class="row top-row">
       <!-- Blog Entries Column -->
       <div class="col-md-8 col">
     
-        <!--Category section/sports-->
+        <!--Category section/Music-->
+        <!--make sure there is atleast two entries for music if not code will throw an index out of bound error-->
         <div class="row content-row">
           <!--title row-->
           <div class="row category-title">
-            <div class="category-title-text"><a href="/category/sports">Sports</a></div>
-            <div class="line"><span></span></div>
+            <div class="music-category-title"><a href="/category/Music"><h2>MUSIC</h2></a></div>
           </div>
           <!--Category content-->
-          <div class="row category-content">
-            <%for(let i=0; i<sportDoc.length; i++){ %>
-              <% let PostTitle1=sportDoc[i].title %>
-              <% if(PostTitle1.length > 72){%>
-                <%PostTitle1=PostTitle1.substr(0,72)+"..."%>
+          <div class="row music-category">
+            <%for(let i=0; i<2; i++){ %>
+              <% let PostTitle1=MusicDoc[i].title %>
+              <% if(PostTitle1.length > 80){%>
+                <%PostTitle1=PostTitle1.substr(0,80)+"..."%>
               <%}%>
               <!--Applying different padding for the first and last element-->
               <% if(i===0){%>
-                <div class="col-sm-12 col-md-4 col-item " style="padding-left:0; padding-right: 7px;">
-                  <div class="card mb-4 w3-card">
-                    <div class="col-img card-img-top">
-                      <img class="" src="<%= sportDoc[i].image %>" alt="<%= sportDoc[i].title %>">
+                <div class="col-sm-12 col-md-6 col-item " style="padding-left:0; padding-right: 20px;">
+                  <div class="music-content">
+                    <div class="music col-img card-img-top">
+                      <img class="" src="<%= MusicDoc[i].image %>" alt="<%= MusicDoc[i].title %>">
                     </div>
                     <div class="card-body">
-                      <h3 class="card-title"><%= PostTitle1 %></h3>
-                      <a href="/category/<%= sportDoc[i].category %>/<%= sportDoc[i]._id %>" class="readmore"> Read More <i class="fas fa-angle-right"></i></a>
-                    </div>
-                  </div>
-                </div>
-              <%}else if(i===2){%>
-                <div class="col-sm-12 col-md-4 col-item" style="padding-right: 0;padding-left: 7px;">
-                  <div class="card mb-4 w3-card">
-                    <div class="col-img card-img-top">
-                      <img class="" src="<%= sportDoc[i].image %>" alt="<%= sportDoc[i].title %>">
-                    </div>
-                    <div class="card-body">
-                      <h3 class="card-title"><%= PostTitle1 %></h3>
-                      <a href="/category/<%= sportDoc[i].category %>/<%= sportDoc[i]._id %>" class="readmore"> Read More <i class="fas fa-angle-right"></i></a>
+                      <a href="/category/<%= MusicDoc[i].category %>/<%= MusicDoc[i]._id %>" class=""><h5 class="card-title"><%= PostTitle1 %></h5></a>
                     </div>
                   </div>
                 </div>
               <%}else{%>
-                <div class="col-sm-12 col-md-4 col-item" style="padding: 2px;">
-                  <div class="card mb-4 w3-card">
-                    <div class="col-img card-img-top">
-                      <img class="" src="<%= sportDoc[i].image %>" alt="<%= sportDoc[i].title %>">
+                <div class="col-sm-12 col-md-6 col-item" style="padding-right: 0;padding-left: 20px;">
+                  <div class="music-content">
+                    <div class="music col-img card-img-top">
+                      <img class="" src="<%= MusicDoc[i].image %>" alt="<%= MusicDoc[i].title %>">
                     </div>
                     <div class="card-body">
-                      <h3 class="card-title"><%= PostTitle1 %></h3>
-                      <a href="/category/<%= sportDoc[i].category %>/<%= sportDoc[i]._id %>" class="readmore"> Read More <i class="fas fa-angle-right"></i></a>
+                      <a href="/category/<%= MusicDoc[i].category %>/<%= MusicDoc[i]._id %>" class=""><h5 class="card-title"><%= PostTitle1 %></h5></a>
                     </div>
                   </div>
                 </div>
+              <%}%>
+
+            <%}%>
+          </div>
+          <!--Stylling for the remainder section of Music if more than 1 entry exist-->
+          <% if(MusicDoc.length>2){%>
+            <div class="row">
+              <% for( let i=2; i< MusicDoc.length; i++){%>
+                <% let musicTitle=MusicDoc[i].title %>
+                <% if(musicTitle.length > 60){%>
+                  <%musicTitle=musicTitle.substr(0,60)+"..."%>
+                <%}%>
+                <!--applying differrent padding style for the rows-->
+                <%if(i%2==0){%>
+                  <div class="col-sm-12 col-md-6 col-music" style="padding-left: 0; padding-right: 20px; margin-bottom: 35px;">
+                      <div class="music-landscape">
+                        <div class="music-img">
+                          <img src="<%= MusicDoc[i].image %>" alt="<%= MusicDoc[i].title %>">
+                        </div>
+                        <div class="music-title">
+                          <a href="/category/<%= MusicDoc[i].category %>/<%= MusicDoc[i]._id %>" class=""><h6 class="card-title"><%= musicTitle %></h6></a>
+                        </div>
+                        
+                      </div>
+                  </div> 
+                <%}else{%>
+                  <div class="col-sm-12 col-md-6 col-music" style="padding-right: 0; padding-left: 20px; margin-bottom: 35px;">
+                    <div class="music-landscape">
+                      <div class="music-img">
+                        <img src="<%= MusicDoc[i].image %>" alt="<%= MusicDoc[i].title %>">
+                      </div>
+                      <div class="music-title">
+                        <a href="/category/<%= MusicDoc[i].category %>/<%= MusicDoc[i]._id %>" class=""><h6 class="card-title"><%= musicTitle %></h6></a>
+                      </div>
+                      
+                    </div>
+                 </div> 
+
+
+                <%}%>
 
               <%}%>
-              
-            <%}%>
-            
-          </div>
+            </div>
+
+          <%}%>
+          
+        
           
           
           <!--Read more button-->
           <div class="row read-more">
-            <div class="col-12"><button class="btn readmore-btn"><a href="/category/sports" class=""> Read More <i class="fas fa-angle-down"></i></a> </button></div>
+            <div class="col-12"><button class="btn readmore-btn"><a href="/category/music" class=""> Read More <i class="fas fa-angle-down"></i></a> </button></div>
           </div>
         </div>
 
-        <!--Category section/Business-->
+        <!--Category section/Lifestyle-->
         <div class="row content-row">
           <!--title row-->
           <div class="row category-title">
-            <div class="category-title-text"><a href="/category/sports">Business</a></div>
+            <div class="category-title-text"><a href="/category/Lifestyle">Lifestyle</a></div>
             <div class="line"><span></span></div>
           </div>
 
@@ -364,7 +395,7 @@
                 <div class="col-img card-img-top">
                   <img class="col-img-circle" src="<%= businessDoc[0].image %>" alt="<%= businessDoc[0].title %>">
                 </div>
-                <div class="card-body" style="padding-top: 20px;">
+                <div class="card-body text-circle-img" style="padding-top: 20px;">
                   <h3 class="card-title"><%= PostTitle1 %></h3>
                   <a href="/category/<%= businessDoc[0].category %>/<%= businessDoc[0]._id %>" class="readmore" style="top: 155px;"> Read More <i class="fas fa-angle-right"></i></a>
                 </div>
@@ -394,16 +425,25 @@
           </div>
           <!--Read more button-->
           <div class="row read-more">
-            <div class="col-12"><button class="btn readmore-btn"><a href="/category/sports" class=""> Read More <i class="fas fa-angle-down"></i></a> </button></div>
+            <div class="col-12"><button class="btn readmore-btn"><a href="/category/Lifestyle" class=""> Read More <i class="fas fa-angle-down"></i></a> </button></div>
+          </div>
+          <!--Abstract shapes positioning-->
+          <div class="abstract-shape2">
+            <img src="/img/abstract_shapes_B.png" alt="abstract_shapes_B">
           </div>
         </div>
 
       </div>
       <!-- Sidebar Widgets Column -->
-      <%- include("partials/aside"); -%>
+      <%- include("partials/aside2"); -%>
 
     </div>
 
+  </div>
+
+  <!--Banner row-->
+  <div class="banner">
+    <a href="#"><img src="/img/banner_x.jpg" alt=""></a>
   </div>
 
 <%- include("partials/footer"); -%>

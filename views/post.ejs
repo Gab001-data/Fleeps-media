@@ -54,58 +54,89 @@
         </div>
 
         <!--Related Post-->
-        <div class="row content-row related-post">
+        <div class="row content-row">
           <!--title row-->
-          <div class="row">
-            <div class="col-12 related-postTitle"><span class="divider"></span><span>Related Post</span><span class="divider"></span></div>
+          <div class="row category-title">
+            <div class="category-title-text"><a href="/category/<%= postDoc[0].tag %>">Related Post</a></div>
+            <div class="line"><span></span></div>
           </div>
-
           <!--Category content-->
           <div class="row category-content">
-            <div class="col-sm-12 col-md-4">
-              <div class="card mb-4">
-                <img class="card-img-top" src="img/download.jpg" alt="Card image cap">
-                <div class="card-body">
-                  <h2 class="card-title">Post Title</h2>
-                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum <a href="#"> Read More &rarr;</a></p>
+            <%for(let i=0; i<relatedDoc.length; i++){ %>
+              <% let PostTitle=relatedDoc[i].title %>
+              <% if(PostTitle.length > 72){%>
+                <%PostTitle=PostTitle.substr(0,72)+"..."%>
+              <%}%>
+              <!--Applying different padding for the first and last element-->
+              <% if(i===0){%>
+                <div class="col-sm-12 col-md-4 col-item " style="padding-left:0; padding-right: 7px;">
+                  <div class="card mb-4 w3-card">
+                    <div class="col-img card-img-top">
+                      <img class="" src="<%= relatedDoc[i].image %>" alt="<%= relatedDoc[i].title %>">
+                    </div>
+                    <div class="card-body">
+                      <h3 class="card-title"><%= PostTitle %></h3>
+                      <a href="/category/<%= relatedDoc[i].category %>/<%= relatedDoc[i]._id %>" class="readmore"> Read More <i class="fas fa-angle-right"></i></a>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-            <div class="col-sm-12 col-md-4">
-              <div class="card mb-4">
-                <img class="card-img-top" src="img/download.jpg" alt="Card image cap">
-                <div class="card-body">
-                  <h2 class="card-title">Post Title</h2>
-                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum <a href="#"> Read More &rarr;</a></p>
+              <%}else if(i===2){%>
+                <div class="col-sm-12 col-md-4 col-item" style="padding-right: 0;padding-left: 7px;">
+                  <div class="card mb-4 w3-card">
+                    <div class="col-img card-img-top">
+                      <img class="" src="<%= relatedDoc[i].image %>" alt="<%= relatedDoc[i].title %>">
+                    </div>
+                    <div class="card-body">
+                      <h3 class="card-title"><%= PostTitle %></h3>
+                      <a href="/category/<%= relatedDoc[i].category %>/<%= relatedDoc[i]._id %>" class="readmore"> Read More <i class="fas fa-angle-right"></i></a>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-            <div class="col-sm-12 col-md-4">
-               <div class="card mb-4">
-                <img class="card-img-top" src="img/download.jpg" alt="Card image cap">
-                <div class="card-body">
-                  <h2 class="card-title">Post Title</h2>
-                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum <a href="#"> Read More &rarr;</a></p>
+              <%}else{%>
+                <div class="col-sm-12 col-md-4 col-item" style="padding: 2px;">
+                  <div class="card mb-4 w3-card">
+                    <div class="col-img card-img-top">
+                      <img class="" src="<%= relatedDoc[i].image %>" alt="<%= relatedDoc[i].title %>">
+                    </div>
+                    <div class="card-body">
+                      <h3 class="card-title"><%= PostTitle %></h3>
+                      <a href="/category/<%= relatedDoc[i].category %>/<%= relatedDoc[i]._id %>" class="readmore"> Read More <i class="fas fa-angle-right"></i></a>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
+
+              <%}%>
+              
+            <%}%>
+            
           </div>
+          
+          
           <!--Read more button-->
           <div class="row read-more">
-            <div class="col-12"><button class="btn">Read More &darr;</button></div>
+            <div class="col-12"><button class="btn readmore-btn"><a href="/category/<%= postDoc[0].tag %>" class=""> Read More <i class="fas fa-angle-down"></i></a> </button></div>
           </div>
         </div>
 
         <!--Comment inputs-->
         <div class="row row-content">
-          <div class="card my-4">
-            <h5 class="card-header">Leave a Comment:</h5>
-            <div class="card-body">
+          <div class="comment-input">
+            <h6 class="comment-title">Your email address will not be pushed. Required fields are marked</h6>
+            <div class="comment-input">
               <form action="/comment" method="POST">
                 <div class="form-group">
-                  <textarea class="form-control" rows="6" name="content"></textarea>
+                  <textarea class="form-control" rows="8" name="content" placeholder="Your Comment" style="border: 1px solid black;"></textarea>
                 </div>
                 <div class="form-group login">
+                  <div class="guest">
+                    <h5>Post as Guest</h5>
+                    <input type="text" class="form-control" name="fname" placeholder="FirstName" required style="border: 1px solid black;">
+                    <input type="text" class="form-control" name="lname" placeholder="LastName" required style="border: 1px solid black;">
+                    <input type="email" class="form-control" name="email" placeholder="Email" required style="border: 1px solid black;">
+                    <input type="hidden" name="postId" value="<%= postDoc[0]._id %>">
+                    <input type="hidden" name="category" value="<%= postDoc[0].category %>">
+                    <input type="hidden" name="title" value="<%= postDoc[0].title %>">
+                  </div>
                   <div class="social-login">
                     <h5>Log in</h5>
                     <i class="fab fa-facebook-square"></i>
@@ -113,28 +144,33 @@
                     <i class="fab fa-instagram"></i>
                     <i class="fab fa-twitter-square"></i>
                   </div>
-                  <div class="guest">
-                    <h5>Post as Guest</h5>
-                    <input type="text" class="form-control" name="fname" placeholder="FirstName" required>
-                    <input type="text" class="form-control" name="lname" placeholder="LastName" required>
-                    <input type="email" class="form-control" name="email" placeholder="Email" required>
-                    <input type="hidden" name="postId" value="<%= postDoc[0]._id %>">
-                    <input type="hidden" name="category" value="<%= postDoc[0].category %>">
-                    <input type="hidden" name="title" value="<%= postDoc[0].title %>">
-                  </div>
                 </div>
                 <div class="form-group">
-                  <button type="submit" class="btn btn-primary form-control">Comment</button>
+                  <button type="submit" class="btn btn-comment form-control">Comment</button>
                 </div>
                 
               </form>
             </div>
           </div>
-
         </div>
 
         <!--Comment Section-->
-        <div class="row row-content">
+        <div class="row category-title">
+          <div class="category-title-text"><%= commentDoc.length %> Comment(s)</div>
+        </div>
+        <div class="row row-content w3-card">
+          <!--report Modal-->
+          <div id="id01" class="w3-modal">
+            <div class="w3-modal-content w3-animate-top w3-card-4" style="top: 30%;
+            height: 150px; width: 35%; color: green; text-align: center; padding-top: 40px;">
+              <span onclick="document.getElementById('id01').style.display='none'" 
+                class="w3-button w3-display-topright" style="color:red;">&times;</span>
+              <div class="w3-container">
+                <p>You've successfully reported this comment!</p>
+                <p>thanks for doing your part. we will take it up from here... <i class="fas fa-fist-raised"></i> </p>
+              </div>
+            </div>
+          </div>
           <!--template goes here/ one full comment including replies-->
           <% let commentIndex=0 %>
           <% let replyIndex=0 %>
@@ -143,7 +179,7 @@
             <div class="comment-section">
               <!--user image section-->
               <div class="user-image">
-                <img src="img/avatar.webp" alt="user-image">
+                <img src="img/profile_avatar.png" alt="user-image">
               </div>
               <!--comment text section-->
               <div class="comment-text">
@@ -151,31 +187,49 @@
                 <div class="row comment-header">
                   <% let option1={month: 'long', day: 'numeric'} %>
                   <% let monthDay= comment.createdAt.toLocaleDateString('en-US', option1).split(" "); %>
-                  <span><%= comment.user.firstName %> <%= comment.user.lastName %></span>&nbsp;<span><%= monthDay[0].substring(0,3) %> <%= monthDay[1]%></span>
+                  <h5><%= comment.user.firstName %> <%= comment.user.lastName %></h5><h6 class="post-time"><%= monthDay[0].substring(0,3) %> <%= monthDay[1]%></h6>
 
                 </div>
 
                 <!--comment body-->
-                <div class="row">
+                <div class="comment-body">
                   <p><%= comment.content %></p>
                 </div>
 
                 <!--Likes & reply tags-->
-                <div class="row">
-                  <span class="likes"><i class="fas fa-thumbs-up" onclick="showLikes(event)"></i></span> <span class="no-likes" style="display:none;">0</span>
-                  <span class="reply-click" onclick="showElements('reply-input<%=commentIndex%>')">Reply</span>
+                <!--<a href="/category/<%= postDoc[0].category %>/<%= postDoc[0]._id %>/<%= comment._id %>"></a>-->
+                <div class="comment-actions">
+                  <p class="likes"><i class="fas fa-heart" onclick="showLikes2('<%=comment._id%>',event)" data-post-id="<%= comment._id %>"></i></p>
+                  <p class="no-likes" id="<%=comment._id%>"><%= comment.likes %></p>
+                  <p class="reply-click" onclick="showElements('reply-input<%=commentIndex%>')">Reply</p>
+                  <div class="flag report"><i class="fas fa-flag" style="display:block;"></i>
+                    <div class="report-text">
+                      <p id="abusive" onclick="reportComment('<%= comment._id %>',event)">flag as abusive</p>
+                      <p id="disinformation" onclick="reportComment('<%= comment._id %>',event)">flag as disinformation</p>
+                    </div>
+                  </div>
                 </div>
+
 
                 <!--comment box for reply-->
                 <div class="row" id="reply-input<%=commentIndex%>" style="display:none;">
-                  <div class="card my-4">
-                    <h5 class="card-header">Leave a Reply:</h5>
-                    <div class="card-body">
+                  <div class="comment-content">
+                    <h6 class="comment-title">Your email address will not be pushed. Required fields are marked</h6>
+                    <div class="comment-input">
                       <form action="/reply" method="POST">
                         <div class="form-group">
-                          <textarea class="form-control" rows="4" name="content"></textarea>
+                          <textarea class="form-control" rows="8" name="content" placeholder="Your Reply" style="border: 1px solid black;"></textarea>
                         </div>
                         <div class="form-group login">
+                          <div class="guest">
+                            <h5>Post as Guest</h5>
+                            <input type="text" class="form-control" name="fname" placeholder="FirstName" required style="border: 1px solid black;">
+                            <input type="text" class="form-control" name="lname" placeholder="LastName" required style="border: 1px solid black;">
+                            <input type="email" class="form-control" name="email" placeholder="Email" required style="border: 1px solid black;">
+                            <input type="hidden" name="commentId" value="<%= comment._id %>">
+                            <input type="hidden" name="category" value="<%= postDoc[0].category %>">
+                            <input type="hidden" name="postId" value="<%= postDoc[0]._id %>">
+                          </div>
                           <div class="social-login">
                             <h5>Log in</h5>
                             <i class="fab fa-facebook-square"></i>
@@ -183,18 +237,9 @@
                             <i class="fab fa-instagram"></i>
                             <i class="fab fa-twitter-square"></i>
                           </div>
-                          <div class="guest">
-                            <h5>Post as Guest</h5>
-                            <input type="text" class="form-control" name="fname" placeholder="FirstName" required>
-                            <input type="text" class="form-control" name="lname" placeholder="LastName" required>
-                            <input type="email" class="form-control" name="email" placeholder="Email" required>
-                            <input type="hidden" name="commentId" value="<%= comment._id %>">
-                            <input type="hidden" name="category" value="<%= postDoc[0].category %>">
-                            <input type="hidden" name="title" value="<%= postDoc[0].title %>">
-                          </div>
                         </div>
                         <div class="form-group">
-                          <button type="submit" class="btn btn-primary form-control">Reply</button>
+                          <button type="submit" class="btn btn-comment form-control">Reply</button>
                         </div>
                         
                       </form>
@@ -207,30 +252,36 @@
                   <% replyDoc.forEach(function(reply){%>
                     <% replyIndex++ %>
                     <% if(reply.commentId===comment._id.toString()){%>
-                      <div class="comment-section">
+                      <div class="reply-section">
                         <!--user image section-->
-                        <div class="user-image">
-                          <img src="img/avatar.webp" alt="user-image">
+                        <div class="user-image reply">
+                          <img src="img/profile_avatar.png" alt="user-image">
                         </div>
-                        <!--comment text section-->
+                        <!--reply text section-->
                         <div class="comment-text">
-                          <!--comment head-->
+                          <!--reply head-->
                           <div class="row comment-header">
-                            <% let option1={month: 'long', day: 'numeric'} %>
-                            <% let monthDay= reply.createdAt.toLocaleDateString('en-US', option1).split(" "); %>
-                            <span><%= reply.user.firstName %> <%= reply.user.lastName %></span>&nbsp;<span><%= monthDay[0].substring(0,3) %> <%= monthDay[1]%></span>
+                            <% let option2={month: 'long', day: 'numeric'} %>
+                            <% let monthDay2= reply.createdAt.toLocaleDateString('en-US', option2).split(" "); %>
+                            <h5><%= reply.user.firstName %> <%= reply.user.lastName %></h5><h6 class="post-time"><%= monthDay2[0].substring(0,3) %> <%= monthDay2[1]%></h6>
           
                           </div>
           
-                          <!--comment body-->
-                          <div class="row">
+                          <!--reply body-->
+                          <div class="repy-body">
                             <p><%= reply.content %></p>
                           </div>
           
                           <!--Likes & reply tags-->
-                          <div class="row">
-                            <span class="likes"><i class="fas fa-thumbs-up" onclick="showLikes(event)"></i></span> <span class="no-likes" style="display:none;">0</span>
-                            <span class="reply-click" onclick="showElements('reply-input<%=replyIndex %>')">Reply</span>
+                          <div class="comment-actions">
+                            <p class="likes"><i class="fas fa-heart" onclick="showLikes2('<%=reply._id %>',event)" data-reply-id="<%= reply._id %>"></i></p><p class="no-likes" id="<%=reply._id %>"><%= reply.likes %></p>
+                            <p class="reply-click" onclick="showElements('reply-input<%=commentIndex%>')">Reply</p>
+                            <div class="flag report" style="margin-left: 50%;"><i class="fas fa-flag" style="display:block;"></i>
+                              <div class="report-text">
+                                <p onclick="reportComment('<%= reply._id %>',event)">flag as abusive</p>
+                                <p onclick="reportComment('<%= reply._id %>',event)">flag as disinformation</p>
+                              </div>
+                            </div>
                           </div>
           
                           <!--comment box for reply-->
@@ -290,9 +341,9 @@
 
       </div>
 
-    <!-- Sidebar Widgets Column -->
-    <%- include("partials/aside"); -%>
-    <!-- /.row -->
+      <!-- Sidebar Widgets Column -->
+      <%- include("partials/aside"); -%>
+      <!-- /.row -->
     </div>
 </div>
 <%- include("partials/footer"); -%>

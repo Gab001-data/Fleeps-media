@@ -55,7 +55,15 @@ module.exports.post= new mongoose.model("Post", postSchema);
       default: new Date()
     },
     user: usersSchema,
-    likes: Number
+    likes: {
+      type: Number,
+      default: 0
+    },
+    flag: String,
+    deleted: {
+      type: Number,
+      default: 0
+    }
   });
 module.exports.comment= new mongoose.model('Comment', commentSchema)
   // Reply schema & model
@@ -67,6 +75,14 @@ module.exports.comment= new mongoose.model('Comment', commentSchema)
       default: new Date()
     },
     user: usersSchema,
-    likes: Number
+    likes: {
+      type: Number,
+      default: 0
+    },
+    flag: String,
+    deleted: {
+      type: Number,
+      default: 0
+    }
   });
 module.exports.reply= new mongoose.model("Reply", replySchema);
